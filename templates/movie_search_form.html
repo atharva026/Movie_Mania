@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- Main Content -->
+<main class="flex flex-col lg:w-5/6 m-auto items-center text-center p-8">
+    <!-- Carousel -->
+    <div id="carouselExampleAutoplaying" class="lg:w-full carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for movie in movies %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="content mb-4">
+                    <img src="{{ movie.Poster }}" alt="{{ movie.Title }} poster"
+                        class="movie-title h-72 w-56 items-center text-center object-contain rounded-lg mx-auto">
+                </div>
+                <h2 class="text-4xl font-semibold mb-2">{{ movie.Title }}</h2>
+                <h4 class="text-lg font-semibold mb-2">
+                    <span class="mx-2">{{ movie.Year }}</span> | <span class="mx-2"><i>{{ movie.Language }}</i></span> |
+                    <span class="mx-2">{{ movie.Runtime }}</span> | <span class="mx-2">{{ movie.Genre }}</span>
+                </h4>
+                <p class="max-w-xl mx-auto mb-4">{{ movie.Plot }}</p>
+                <div class="px-6 pt-4 pb-2">
+                    <span
+                        class="inline-block bg-gray-700 rounded-full px-3 py-1 mb-2 text-sm font-semibold text-gray-200 mr-2">#IMDb
+                        {{ movie.Ratings.0.Value }}</span>
+                    {% if movie.Ratings|length > 1 %}
+                    <span
+                        class="inline-block bg-gray-700 rounded-full px-3 py-1 mb-2 text-sm font-semibold text-gray-200">#Rotten
+                        Tomatoes {{ movie.Ratings.1.Value }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</main>
+{% endblock body %}
